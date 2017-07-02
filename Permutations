@@ -1,0 +1,21 @@
+import itertools
+from PIL import Image,ImageDraw,ImageFont
+unicode_text = u"\uFE91\uFE92\uFE90\uFE97\uFE99"
+list_of_letters = list (unicode_text)
+
+for word in itertools.permutations( list_of_letters,3):
+   print ("      ",''.join(word))
+   char = ''.join(word)
+   # sample text and font          
+   verdana_font = ImageFont.truetype("arabtype.ttf", 30, encoding="unic")
+   # get the line size
+   text_width, text_height = verdana_font.getsize(''.join(word))
+
+   # create a blank canvas with extra space between lines
+   canvas = Image.new('RGBA', (text_width + 10, text_height + 10), (255, 255, 255))
+   # draw the text onto the text canvas, and use black as the text color
+   draw = ImageDraw.Draw(canvas)
+   draw.text((5,5), char, font = verdana_font, fill = "#000000")
+   
+   #save the blank canvas to a file
+   canvas.save(char+'.png', "PNG")
