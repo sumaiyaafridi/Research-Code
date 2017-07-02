@@ -1,10 +1,10 @@
 import itertools
 from PIL import Image,ImageDraw,ImageFont
-unicode_text = u"\uFE91\uFE92\uFE90\uFE97\uFE99"
+unicode_text = u"\uFE91\uFE92\uFE90\uFE97\uFE91"
 list_of_letters = list (unicode_text)
 
 for word in itertools.permutations( list_of_letters,3):
-   print ("      ",''.join(word))
+  
    char = ''.join(word)
    # sample text and font          
    verdana_font = ImageFont.truetype("arabtype.ttf", 30, encoding="unic")
