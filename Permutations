@@ -1,10 +1,10 @@
 import itertools
+import os
 from PIL import Image,ImageDraw,ImageFont
-unicode_text = u"\uFE91\uFE92\uFE90\uFE97\uFE91"
+unicode_text = u"\uFBFE\uFEE4\uFEB3"
 list_of_letters = list (unicode_text)
-
-for word in itertools.permutations( list_of_letters,3):
-  
+folder = 1
+for word in itertools.permutations( list_of_letters ):
    char = ''.join(word)
    # sample text and font          
    verdana_font = ImageFont.truetype("arabtype.ttf", 30, encoding="unic")
@@ -16,6 +16,9 @@ for word in itertools.permutations( list_of_letters,3):
    # draw the text onto the text canvas, and use black as the text color
    draw = ImageDraw.Draw(canvas)
    draw.text((5,5), char, font = verdana_font, fill = "#000000")
-   
+   path = 'C:\Users\Afridi\AnacondaProjects\Research-Code\permutation of characters\\'+ str(folder)
+   if not os.path.exists(path):
+       os.makedirs(path)
    #save the blank canvas to a file
-   canvas.save(char+'.png', "PNG")
+   canvas.save(path + '\\' + char+'.png', "PNG")
+   folder += 1
