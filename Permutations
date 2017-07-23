@@ -1,24 +1,27 @@
 import itertools
 import os
 from PIL import Image,ImageDraw,ImageFont
+
 unicode_text = u"\uFBFE\uFEE4\uFEB3"
 list_of_letters = list (unicode_text)
 folder = 1
-for word in itertools.permutations( list_of_letters ):
+for word in itertools.permutations( list_of_letters,2):
    char = ''.join(word)
    # sample text and font          
-   verdana_font = ImageFont.truetype("arabtype.ttf", 30, encoding="unic")
+   verdana_font = ImageFont.truetype("DUBAI-MEDIUM.TTF", 30, encoding="unic")
    # get the line size
    text_width, text_height = verdana_font.getsize(''.join(word))
 
    # create a blank canvas with extra space between lines
-   canvas = Image.new('RGBA', (text_width + 10, text_height + 10), (255, 255, 255))
+   canvas = Image.new('RGBA', (60, 60), (255, 255, 255))
+
    # draw the text onto the text canvas, and use black as the text color
    draw = ImageDraw.Draw(canvas)
    draw.text((5,5), char, font = verdana_font, fill = "#000000")
-   path = 'C:\Users\Afridi\AnacondaProjects\Research-Code\permutation of characters\\'+ str(folder)
+   path = 'C:\Users\Afridi\AnacondaProjects\Transcription\\'+ str(folder)
    if not os.path.exists(path):
        os.makedirs(path)
    #save the blank canvas to a file
+   
    canvas.save(path + '\\' + char+'.png', "PNG")
    folder += 1
