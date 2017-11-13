@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image, ImageDraw
+from utils import *
+
+filename = 'C:/Python27/cclabel/images/cle-out.png'
+img = cv2.imread(filename, 1)
+hsv=cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+# Extract red color only
+hsv_lower=np.uint8([0, 200, 210])
+hsv_upper=np.uint8([180, 250, 250])
+mask= cv2.inRange(hsv, hsv_lower, hsv_upper)
+
+#display mask
+res = cv2.bitwise_and(img,img,mask = mask)
+res_gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+ys,xs = np.where(res_gray>0)
+pts = [(x,y) for x,y in zip(xs,ys)]
+
+empty = np.zeros_like(img)
+mask_c = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+imaskc = mask_c>0
+
+empty[imaskc] = img[imaskc]
+cv2.imwrite("C:/Python27/cclabel/images/cle-out-red.png", empty)
