@@ -111,7 +111,7 @@ def run(img):
     colors = {}
 
     # Image to display the components in a nice, colorful way
-    output_img = Image.new("RGB", (500, 500))
+    output_img = Image.new("RGB", (width, height))
     outdata = output_img.load()
     #outdata1 = np.zeros_like(output_img)
     for (x, y) in labels:
