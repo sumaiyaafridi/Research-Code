@@ -19,7 +19,7 @@ import numpy as np
 def run(img):
     data = img.load()
     width, height = img.size
- 
+    
     # Union find data structure
     uf = UFarray()
  
@@ -111,36 +111,97 @@ def run(img):
     colors = {}
 
     # Image to display the components in a nice, colorful way
-    output_img = Image.new("RGB", (width, height))
+    output_img = Image.new("RGB", (100, 100))
+    
+    Zero=np.zeros(shape=(100, 100),dtype=np.uint8)
+    One=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Two=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Three=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Four=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Five=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Six=np.zeros(shape=(100, 100),dtype=np.uint8)
+    Seven=np.zeros(shape=(100, 100),dtype=np.uint8)
     outdata = output_img.load()
     #outdata1 = np.zeros_like(output_img)
     for (x, y) in labels:
- 
+        #print str(x) + " " + str(y)
         # Name of the component the current point belongs to
         component = uf.find(labels[(x, y)])
        # print component
-
+        #temp=labels[(x, y)] 
         # Update the labels with correct information
         labels[(x, y)] = component
- 
+        path='imagesNew/13/'
+        #print str(x) +","+ str(y)+ " " +str(labels[(x, y)])
+        if labels[(x, y)]==0:
+            Zero[y][x]=int(255)
+            Z=Zero[y][x]
+            print Z
+            if Z==5:
+              print Zero[y][x]
+            Zeroth = Image.fromarray(Zero)
+            Zeroth.save(path+'Zero'+'.png','png')
+            
+            #print str(Zero[x][y])
+        if labels[(x, y)]==1:
+            One[y][x]=int(255)
+            First = Image.fromarray(One)
+            First.save(path+'First'+'.png','png')
+            #print str(One[x][y])
+        if labels[(x, y)]==2:
+            Two[y][x]=int(255)
+            Second=Image.fromarray(Two)
+            Second.save(path+'Second'+'.png','png')
+            #print str(Three[x][y])
+        if labels[(x, y)]==3:
+           Three[y][x]=int(255)
+           Third=Image.fromarray(Three)
+           Third.save(path+'Third'+'.png','png')
+            #print str(Three[x][y])
+        if labels[(x, y)]==4:
+           Four[y][x]=int(255)
+           Fourth=Image.fromarray(Four)
+           Fourth.save(path+'Fourth'+'.png','png')
+        if labels[(x, y)]==5:
+           Five[y][x]=int(255)
+           Fifth=Image.fromarray(Five)
+           Fifth.save(path+'Fifth'+'.png','png')
+        if labels[(x, y)]==6:
+           Six[y][x]=int(255)
+           Sixth=Image.fromarray(Six)
+           Sixth.save(path+'Sixth'+'.png','png')
+        if labels[(x, y)]==7:
+           Seven[y][x]=int(255)
+           Seventh=Image.fromarray(Seven)
+           Seventh.save(path+'Seven'+'.png','png')
+            #print str(Three[x][y])
+        
         # Associate a random color with this component 
         if component not in colors: 
             colors[component] = (random.randint(0,255), random.randint(0,255),random.randint(0,255))
+            #print colors[component]
 
-        # Colorize the image
+
+        
         outdata[x, y] = colors[component]
         #i=10
         #for (x,y) in outdata:
             #outdata1[x, y] = colors[component]
             #cv2.imwrite("C:/Python27/cclabel/images/emp"+str(i)+'.png', outdata1)
-            
+    
+    
     return (labels, output_img)
 
  
 def main():
     # Open the image
     img = Image.open(sys.argv[1])
+    
+    
+    #pix = np.array(img)
+    #print type(pix)
 
+    #print img.shape
     # Threshold the image, this implementation is designed to process b+w
     # images only
     img = img.point(lambda p: p > 190 and 255)
@@ -155,8 +216,8 @@ def main():
     # output_image is just a frivolous way to visualize the components.
     (labels, output_img) = run(img)
 
-    output_img.show()
-    output_img.save('C:/Python27/cclabel/images/emp1'+'.png','png')
+    #output_img.show()
+    output_img.save('emp1'+'.png','png')
    # crop=output_img.crop(labels[x, y])
     #output_img2 = Image.new("RGB", (50, 50))
     #output_img2.paste(crop)
